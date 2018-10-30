@@ -1,3 +1,4 @@
+.section .boot, "awx"
 .global _start
 
 _start:
