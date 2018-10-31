@@ -1,16 +1,39 @@
+OUTPUT_ARCH("riscv")
+
 ENTRY(_start)
 
-SECTIONS {
-    . = 0x0;
+SECTIONS
+{
+    . = 0x00000000;
 
-    _stack_start = .;
-    . = 0x7c00;
-    _stack_end = .;
-
-    .bootloader :
+    /* text: Program code section */
+    .text :
     {
         *(.boot)
-        *(.text .text.*)
-        . = ALIGN(512);
+        *(.text)
+        *(.text.*)
+    }
+
+    /* rodata: Read-only data */
+    .rodata :
+    {
+        *(.rdata)
+        *(.rodata)
+        *(.rodata.*)
+    }
+
+    /* data: Writable data */
+    .data :
+    {
+        *(.data)
+        *(.data.*)
+    }
+
+    . = .;
+    _bss_start = .;
+    .bss :
+    {
+        *(.bss)
+        *(.bss.*)
     }
 }
