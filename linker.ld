@@ -4,7 +4,7 @@ ENTRY(_start)
 
 SECTIONS
 {
-    . = 0x00000000;
+    . = 0x80000000;
 
     /* text: Program code section */
     .text :
