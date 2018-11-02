@@ -9,8 +9,6 @@ pub fn __start_rust(x: i32, y: i32) -> i32 {
     unsafe {
         *uart_16550 = 'a' as u8;
     }
-
-    x + y
 }
 
 use core::panic::PanicInfo;

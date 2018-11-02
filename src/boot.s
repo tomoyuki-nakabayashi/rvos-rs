@@ -13,7 +13,7 @@ _start:
     /* Now jump to the rust world; __start_rust.  */
     auipc   t0, %hi(__start_rust)
     addi    t0, t0, %lo(__start_rust)
-    jr      t0
+    j       __start_rust
 
 abort:
 
