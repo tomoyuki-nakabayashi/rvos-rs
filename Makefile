@@ -10,5 +10,8 @@ CARGO_BUILD_DIR := $(BASE_DIR)/target/riscv32imac-unknown-none-elf/debug
 $(TARGET): $(CARGO_BUILD_DIR)/$(RUST_TARGET) linker.ld Makefile
 	$(RISCV-LD) -T linker.ld $(CARGO_BUILD_DIR)/$(RUST_TARGET) -o $(TARGET)
 
-$(CARGO_BUILD_DIR)/$(RUST_TARGET): src/lib.rs src/boot.s Makefile
+$(CARGO_BUILD_DIR)/$(RUST_TARGET): src/lib.rs src/io/uart.rs src/boot.s Makefile
 	cargo xbuild --target riscv32imac-unknown-none-elf
+
+run: $(TARGET)
+	/opt/riscv-qemu/bin/qemu-system-riscv32 -nographic -machine virt -kernel $(TARGET)

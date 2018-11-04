@@ -7,8 +7,9 @@ _start:
     addi    x1, zero, 0
 
     /* Set up stack pointer. */
-    auipc   sp, %hi(stacks + 1024)
-    addi    sp, sp, %lo(stacks + 1024)
+    addi    sp, zero, 0
+    lui     sp, %hi(stacks + 1024)
+    ori     sp, sp, %lo(stacks + 1024)
 
     /* Now jump to the rust world; __start_rust.  */
     auipc   t0, %hi(__start_rust)
