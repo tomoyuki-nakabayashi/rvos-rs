@@ -9,7 +9,6 @@ mod asm;
 mod io;
 
 use io::uart::Uart;
-use bare_metal::Mutex;
 
 global_asm!(include_str!("boot.s"));
 
