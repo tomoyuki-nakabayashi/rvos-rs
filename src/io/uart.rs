@@ -1,3 +1,6 @@
+//! UART device.
+//! TODO: Use the spike one instead virt (uart_16550).
+
 pub struct Uart {
     addr: *mut u8,
 }

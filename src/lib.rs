@@ -1,8 +1,11 @@
+//! An OS for RISC-V processor.
 #![feature(global_asm)]
+#![feature(asm)]
 #![no_std]
 
 extern crate bare_metal;
 
+mod asm;
 mod io;
 
 use io::uart::Uart;
