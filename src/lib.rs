@@ -10,10 +10,15 @@ use bare_metal::Mutex;
 
 global_asm!(include_str!("boot.s"));
 
+static HELLO: &[u8] = b"Hello from Rust!";
+
 #[no_mangle]
 pub fn __start_rust() -> ! {
-    let uart_16550 = Uart::new(0x1000_0000 as *mut u8);
-    uart_16550.write('a' as u8);
+    let uart1 = Uart::new(0x10013000 as *mut u8);
+    
+    for c in HELLO {
+        uart1.write(*c);
+    }
     
     loop{}
 }
