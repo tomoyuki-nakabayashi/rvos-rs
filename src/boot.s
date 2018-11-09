@@ -1,4 +1,5 @@
-.option norvc
+.equ DRAM_BASE, 0x80000000
+
 .section .boot, "ax",@progbits
 .global _start
 .global abort
@@ -12,9 +13,9 @@ _start:
     ori     sp, sp, %lo(stacks + 1024)
 
     /* Now jump to the rust world; __start_rust.  */
-    auipc   t0, %hi(__start_rust)
-    addi    t0, t0, %lo(__start_rust)
-    j       __start_rust
+    lui     t0, %hi(DRAM_BASE)
+    ori     t0, t0, %lo(DRAM_BASE)
+    jr      t0
 
 abort:
 

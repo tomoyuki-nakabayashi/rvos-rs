@@ -2,8 +2,6 @@
 
 use bare_metal::Mutex;
 
-static UART0: LockedUart = LockedUart::new();
-
 pub struct Uart {
     addr: *mut u8,
 }
@@ -25,7 +23,7 @@ impl Uart {
 pub struct LockedUart(Mutex<Option<Uart>>);
 
 impl LockedUart {
-    pub const fn new() -> LockedUart {
+    pub fn new() -> LockedUart {
         LockedUart(Mutex::new(None))
     }
 }
