@@ -52,7 +52,7 @@ _start:
     j       __start_rust
 
 abort:
-
+    jal    zero, abort
 .bss
 
     .global stacks
