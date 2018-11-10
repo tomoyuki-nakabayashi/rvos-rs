@@ -15,3 +15,6 @@ $(CARGO_BUILD_DIR)/$(RUST_TARGET): src/lib.rs src/io/uart.rs Makefile
 
 run: $(TARGET)
 	/opt/riscv-qemu/bin/qemu-system-riscv32 -nographic -machine sifive_u -kernel $(TARGET)
+
+clean:
+	cargo clean
