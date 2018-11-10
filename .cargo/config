@@ -1,0 +1,8 @@
+[target.riscv32imac-unknown-none-elf]
+linker = "/opt/riscv/bin/riscv32-unknown-linux-gnu-ld"
+rustflags = [
+  "-C", "link-arg=-Tlinker.ld",
+]
+
+[build]
+target = "riscv32imac-unknown-none-elf"

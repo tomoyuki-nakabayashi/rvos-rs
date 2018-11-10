@@ -2,8 +2,7 @@
 #![feature(global_asm)]
 #![feature(asm)]
 #![no_std]
-
-extern crate bare_metal;
+#![no_main]
 
 mod asm;
 mod io;
