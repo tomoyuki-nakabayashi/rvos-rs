@@ -31,9 +31,9 @@ pub fn panic(_info: &PanicInfo) -> ! {
 
 // `abort` is needed when linking.
 #[cfg(target_arch = "riscv32")]
+#[link_section = ".boot"]
 global_asm!(r#"
 .option norvc
-.section .boot, "ax",@progbits
 .global _start
 .global abort
 
