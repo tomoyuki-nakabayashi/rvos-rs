@@ -14,11 +14,11 @@ static HELLO: &[u8] = b"Hello from Rust!";
 #[no_mangle]
 pub fn __start_rust() -> ! {
     let uart1 = Uart::new(0x10013000 as *mut u8);
-    
     for c in HELLO {
         uart1.write(*c);
     }
-    
+
+    unsafe { asm::wfi() };
     loop{}
 }
 
@@ -26,35 +26,29 @@ use core::panic::PanicInfo;
 #[panic_handler]
 #[no_mangle]
 pub fn panic(_info: &PanicInfo) -> ! {
-    loop{}
+    loop {}
+}
+
+#[no_mangle]
+pub fn abort() -> ! {
+    loop {}
 }
 
 // `abort` is needed when linking.
 #[cfg(target_arch = "riscv32")]
 #[link_section = ".boot"]
 global_asm!(r#"
-.option norvc
-.global _start
-.global abort
-
 _start:
-    addi    x1, zero, 0
-
     /* Set up stack pointer. */
-    addi    sp, zero, 0
-    lui     sp, %hi(stacks + 1024)
-    ori     sp, sp, %lo(stacks + 1024)
+    lui     sp, %hi(stack_end)
+    ori     sp, sp, %lo(stack_end)
 
     /* Now jump to the rust world; __start_rust.  */
-    auipc   t0, %hi(__start_rust)
-    addi    t0, t0, %lo(__start_rust)
     j       __start_rust
 
-abort:
-    jal    zero, abort
 .bss
 
-    .global stacks
-stacks:
+stack_start:
     .skip 1024
+stack_end:
 "#);
